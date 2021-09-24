@@ -44,14 +44,14 @@ public class GenerateMasks {
             }
             sideHeight = height / 4;
             if (args.length >= 3) {
-                width = Integer.parseInt(args[2]);
+                sideWidth = Integer.parseInt(args[2]);
             }
             if (args.length >= 4) {
-                width = Integer.parseInt(args[3]);
+                sideHeight = Integer.parseInt(args[3]);
             }
 
             if (args.length >= 5) {
-                if(args[5].equalsIgnoreCase("true"))
+                if(args[4].equalsIgnoreCase("true"))
                     includeMirrors = true;
             }
 
@@ -60,7 +60,7 @@ public class GenerateMasks {
             return;
         }
 
-        if(sideWidth >= width || sideWidth <= 0 || sideHeight >= height || sideHeight <= 0 || height < 4 || width < 4 || sideHeight * 2 >= height || sideWidth * 2 >= width)
+        if(sideWidth <= 0 || sideHeight <= 0 || height < 4 || width < 4 || sideHeight * 2 >= height || sideWidth * 2 >= width)
             throw new IllegalArgumentException("All 9 sections needs to have at least 1 pixel thickness.");
 
 
