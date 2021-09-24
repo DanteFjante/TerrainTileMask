@@ -17,7 +17,7 @@ public class GenerateMasks {
     private static int sideWidth = 16;
     private static int sideHeight = 16;
 
-    private static boolean GenerateMirrors;
+    private static boolean includeMirrors;
 
     /**
      * Args:
@@ -51,7 +51,8 @@ public class GenerateMasks {
             }
 
             if (args.length >= 5) {
-
+                if(args[5].equalsIgnoreCase("true"))
+                    includeMirrors = true;
             }
 
         } catch (NumberFormatException e) {
@@ -66,7 +67,7 @@ public class GenerateMasks {
 
         for (int i = 0; i < 512; i++) {
             boolean[][] mask = createMask(i);
-            Collection<String> strings = createTransforms(mask, true);
+            Collection<String> strings = createTransforms(mask, !includeMirrors);
             if(transforms.stream().anyMatch(strings::contains))
                 continue;
             BufferedImage image = createImage(mask);
@@ -80,7 +81,7 @@ public class GenerateMasks {
         }
     }
 
-    public static Collection<String> createTransforms(boolean[][] mask, boolean includeMirror) {
+    public static Collection<String> createTransforms(boolean[][] mask, boolean filterMirror) {
         StringBuilder s1 = new StringBuilder();
         StringBuilder s2 = new StringBuilder();
         StringBuilder s3 = new StringBuilder();
@@ -102,7 +103,7 @@ public class GenerateMasks {
                 s8.append(mask[j][i] ? 1 : 0);
             }
         }
-        if(includeMirror)
+        if(filterMirror)
             return Stream.of(s1.toString(), s2.toString(), s3.toString(), s4.toString(), s5.toString(), s6.toString(), s7.toString(), s8.toString()).collect(Collectors.toList());
         return Stream.of(s1.toString(), s2.toString(), s3.toString(), s4.toString()).collect(Collectors.toList());
     }
