@@ -1,4 +1,4 @@
-# TerrainTileMask
+# TileMaker
 A terrain tile mask generator for 3x3 terrain tile sections for game engines.
 
 
